@@ -17,4 +17,9 @@ attr_reader :name, :food_trucks
     def food_trucks_that_sell(item)
         @food_trucks.find_all { |truck| truck.inventory.include?(item) }
     end
+    
+    def sorted_item_list
+        @food_trucks.flat_map { |truck| truck.inventory.keys }.sort_by { |item| item.name }.uniq
+        # require 'pry'; binding.pry
+    end
 end
