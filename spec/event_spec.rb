@@ -165,7 +165,7 @@ RSpec.describe Event do
         expect(event.sorted_item_list).to eq([item2, item4, item1, item3])
     end
 
-    xit 'can identify when a food truck is overstocked' do 
+    it 'can identify when a food truck is overstocked' do 
         event = Event.new("South Pearl Street Farmers Market") 
         food_truck1 = FoodTruck.new("Rocky Mountain Pies")
         item1 = Item.new({name: 'Peach Pie (Slice)', price: "$3.75"})

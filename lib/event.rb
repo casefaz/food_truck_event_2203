@@ -23,15 +23,15 @@ attr_reader :name, :food_trucks
     end
     
     def sorted_item_list
-        @food_trucks.flat_map { |truck| truck.inventory.keys }.sort_by { |item| item.name }.uniq
+        inventory_helper.sort_by { |item| item.name }#.uniq
         # require 'pry'; binding.pry
     end
 
-    # def overstocked_items #hard stuck, moving onto total inventory and then coming back 
-    #    over_50 = @food_trucks.flat_map { |truck| truck.inventory.find_all { |key, value| value >= 50 }}
+    def overstocked_items #hard stuck, moving onto total inventory and then coming back 
+      @food_trucks.flat_map { |truck| truck.inventory.find_all { |item, quantity| return item if quantity >= 50 && food_trucks_that_sell(item).count > 1}}.flatten
 
-    #     require 'pry'; binding.pry
-    # end
+        # require 'pry'; binding.pry
+    end
 
     def total_inventory
         total = {}
