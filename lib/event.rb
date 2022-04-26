@@ -23,14 +23,11 @@ attr_reader :name, :food_trucks
     end
     
     def sorted_item_list
-        inventory_helper.sort_by { |item| item.name }#.uniq
-        # require 'pry'; binding.pry
+        inventory_helper.sort_by { |item| item.name }
     end
 
-    def overstocked_items #hard stuck, moving onto total inventory and then coming back 
-      @food_trucks.flat_map { |truck| truck.inventory.find_all { |item, quantity| return item if quantity >= 50 && food_trucks_that_sell(item).count > 1}}.flatten
-
-        # require 'pry'; binding.pry
+    def overstocked_items 
+      @food_trucks.map { |truck| truck.inventory.find_all { |item, quantity| return item if quantity >= 50 && food_trucks_that_sell(item).count > 1}}
     end
 
     def total_inventory
@@ -46,6 +43,5 @@ attr_reader :name, :food_trucks
         total[item] = {quantity: sum, food_trucks: food_trucks_that_sell(item)}
         end
         total
-        # require 'pry';binding.pry
     end
 end
